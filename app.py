@@ -56,6 +56,11 @@ if "client" not in st.session_state:
         api_key = st.secrets["GEMINI_API_KEY"]
     except:
         api_key = os.getenv("GEMINI_API_KEY")
+    
+    if not api_key:
+        st.error("GEMINI_API_KEY not found. Please set it in Streamlit secrets.")
+        st.stop()
+    
     st.session_state.client = genai.Client(api_key=api_key)
 
 if "chat" not in st.session_state:
